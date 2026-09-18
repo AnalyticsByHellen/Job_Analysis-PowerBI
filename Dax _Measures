@@ -1,0 +1,115 @@
+DEFINE
+
+MEASURE 'Ds Job'[Total Jobs] =
+COUNTROWS('Ds Job')
+
+MEASURE 'Ds Job'[Total Companies] =
+DISTINCTCOUNT('Ds Job'[Company Name])
+
+MEASURE 'Ds Job'[Total Industries] =
+DISTINCTCOUNT('Ds Job'[Industry])
+
+MEASURE 'Ds Job'[Total Sectors] =
+DISTINCTCOUNT('Ds Job'[Sector])
+
+MEASURE 'Ds Job'[Total States] =
+DISTINCTCOUNT('DS Job'[State Abbre])
+
+MEASURE 'Ds Job'[Total Cities] =
+DISTINCTCOUNT('Ds Job'[Location.1])
+
+MEASURE 'Ds Job'[Average Salary] =
+AVERAGE('DS Job'[Avg Salary] )
+
+MEASURE 'Ds Job'[Median Salary] =
+MEDIAN('Ds Job'[Avg Salary])
+
+MEASURE 'Ds Job'[Highest Salary] =
+MAX('Ds Job'[Max Sal])
+
+MEASURE 'Ds Job'[Lowest Salary] =
+MIN('Ds Job'[Min Sal])
+
+MEASURE 'Ds Job'[Salary Range] =
+[Highest Salary]-[Lowest Salary]
+
+MEASURE 'Ds Job'[Average Rating] =
+AVERAGE('Ds Job'[Rating])
+
+MEASURE 'Ds Job'[Highest Rating] =
+MAX('Ds Job'[Rating])
+
+MEASURE 'Ds Job'[Lowest Rating] =
+MIN('Ds Job'[Rating])
+
+MEASURE 'Ds Job'[Average Company Age] =
+AVERAGEX(
+    'Ds Job',
+    YEAR(TODAY())-'Ds Job'[Founded]
+)
+
+MEASURE 'Ds Job'[Oldest Company Age] =
+MAXX(
+    'Ds Job',
+    YEAR(TODAY())-'Ds Job'[Founded]
+)
+
+MEASURE 'Ds Job'[Youngest Company Age] =
+MINX(
+    'Ds Job',
+    YEAR(TODAY())-'Ds Job'[Founded]
+)
+
+MEASURE 'Ds Job'[Companies Rated Above 4] =
+CALCULATE(
+DISTINCTCOUNT('Ds Job'[Company Name]),
+'Ds Job'[Rating]>=4
+)
+
+MEASURE 'Ds Job'[Jobs Rated Above 4] =
+CALCULATE(
+COUNTROWS('Ds Job'),
+'Ds Job'[Rating]>=4
+)
+
+MEASURE 'Ds Job'[Average Jobs Per Company] =
+DIVIDE([Total Jobs],[Total Companies])
+
+MEASURE 'Ds Job'[Average Jobs Per Industry] =
+DIVIDE([Total Jobs],[Total Industries])
+
+MEASURE 'Ds Job'[Average Jobs Per Sector] =
+DIVIDE([Total Jobs],[Total Sectors])
+
+MEASURE 'Ds Job'[Average Jobs Per State] =
+DIVIDE([Total Jobs],[Total States])
+
+EVALUATE
+
+SUMMARIZECOLUMNS(
+
+"Total Jobs",[Total Jobs],
+"Total Companies",[Total Companies],
+"Total Industries",[Total Industries],
+"Total Sectors",[Total Sectors],
+"Total States",[Total States],
+"Total Cities",[Total Cities],
+"Average Salary",[Average Salary],
+"Median Salary",[Median Salary],
+"Highest Salary",[Highest Salary],
+"Lowest Salary",[Lowest Salary],
+"Salary Range",[Salary Range],
+"Average Rating",[Average Rating],
+"Highest Rating",[Highest Rating],
+"Lowest Rating",[Lowest Rating],
+"Average Company Age",[Average Company Age],
+"Oldest Company Age",[Oldest Company Age],
+"Youngest Company Age",[Youngest Company Age],
+"Companies Rated Above 4",[Companies Rated Above 4],
+"Jobs Rated Above 4",[Jobs Rated Above 4],
+"Average Jobs Per Company",[Average Jobs Per Company],
+"Average Jobs Per Industry",[Average Jobs Per Industry],
+"Average Jobs Per Sector",[Average Jobs Per Sector],
+"Average Jobs Per State",[Average Jobs Per State]
+
+)
